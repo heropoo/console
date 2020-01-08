@@ -1,16 +1,22 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: Heropoo
  * Date: 2019/2/6
  * Time: 20:24
  */
+
 namespace Moon\Console;
 
 class Console
 {
-    public $namespace = 'App\\Commands';
+    public $namespace;
     public $commands = [];
+
+    public function __construct($namespace = 'App\\Commands', array $commands = [])
+    {
+        $this->commands = array_merge($this->commands, $commands);
+        $this->namespace = $namespace;
+    }
 
     /**
      * Add command to commands list
@@ -18,13 +24,14 @@ class Console
      * @param string|\Closure $action
      * @param string $description
      */
-    public function add($command, $action, $description = ''){
-        if(!$action instanceof \Closure){
-            $action = $this->namespace.'\\'.$action;
+    public function add($command, $action, $description = '')
+    {
+        if (!$action instanceof \Closure) {
+            $action = $this->namespace . '\\' . $action;
         }
         $this->commands[$command] = [
-            'action'=>$action,
-            'description'=>$description
+            'action' => $action,
+            'description' => $description
         ];
     }
 
@@ -35,8 +42,9 @@ class Console
      * @return mixed
      * @throws Exception
      */
-    public function runCommand($command, $params = []){
-        if(!isset($this->commands[$command])){
+    public function runCommand($command, $params = [])
+    {
+        if (!isset($this->commands[$command])) {
             throw new Exception("Command '$command' is not defined");
         }
         $action = $this->commands[$command]['action'];

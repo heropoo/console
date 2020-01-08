@@ -5,7 +5,7 @@
  * Date: 2019/3/16
  * Time: 23:56
  */
-namespace App\Commands;
+namespace Tests\Commands;
 
 class PingCommand
 {
