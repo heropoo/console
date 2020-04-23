@@ -17,6 +17,6 @@ $console->add('hello', function (){
 $console->add('ping', 'PingCommand::ping');
 
 $app = new \Moon\Console\ConsoleApplication();
-$status = $app->handCommand($console);
+$status = $app->handleCommand($console);
 exit($status);
 ```
