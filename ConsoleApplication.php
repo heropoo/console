@@ -36,8 +36,12 @@ class ConsoleApplication
             echo '------------------------------------------------' . PHP_EOL;
             // command list
             ksort($console->commands);
+            $max_length = 10;
             foreach ($console->commands as $command => $options) {
-                echo $command . "\t\t" . $options['description'] . PHP_EOL;
+                $max_length = max($max_length, strlen($command));
+            }
+            foreach ($console->commands as $command => $options) {
+                echo sprintf("%-{$max_length}s\t%s", $command, $options['description']).PHP_EOL;
             }
             return 0;
         }
